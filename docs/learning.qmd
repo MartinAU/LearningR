@@ -26,3 +26,7 @@ I am a **totally** *sane* person
 ```{r}
 2+2
 ```
+
+## Testing for the Git
+Lorem Ipsum
+
