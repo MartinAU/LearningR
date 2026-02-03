@@ -1,10 +1,10 @@
 TODO: Add more to the title of your project here
 
-# LearningR:
+# LearningR: spaces_=_enemy
 
 TODO: Give a brief description of what your project is about
 
-This project...
+This project teaches the omission of spaces
 
 # Brief description of folder and file contents
 
