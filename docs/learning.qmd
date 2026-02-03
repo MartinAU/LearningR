@@ -1,0 +1,28 @@
+---
+title: "Reproducibel Document"
+author: "rostools"
+format: html
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+## About me
+
+-   Martin Aagaard Lund 
+-   OUH
+I am a **totally** *sane* person
+
+## Simple Code
+```{r}
+
+```
+
+##Writing R code
+
+2+2
+
+```{r}
+2+2
+```
