@@ -9,7 +9,7 @@ format: html
 #| warning: false
 library(tidyverse)
 
-post_meal_data<-read.csv2(here::here("data/post-meal-insulin.csv"))
+post_meal_data <- read.csv2(here::here("data/post-meal-insulin.csv"))
 ```
 
 ## About me
@@ -19,12 +19,10 @@ post_meal_data<-read.csv2(here::here("data/post-meal-insulin.csv"))
 
 I am a **totally** *sane* person
 ```{r}
-
 ```
 
 ## Simple Code
 ```{r}
-
 ```
 
 ## Writing R code
@@ -32,7 +30,7 @@ I am a **totally** *sane* person
 2+2
 
 ```{r}
-2+2
+2 + 2
 ```
 
 ## Testing for the Git
@@ -51,9 +49,8 @@ glimpse(post_meal_data)
 ```{r}
 #| fig-cap: "Distribution of BMI"
 #| label: "fig-BMI-histo"
-ggplot(post_meal_data, aes(x=BMI)) + 
+ggplot(post_meal_data, aes(x = BMI)) +
   geom_histogram()
-   
 ```
 
 See @fig-BMI-histo
@@ -63,7 +60,7 @@ See @fig-BMI-histo
 ```{r}
 #| fig-cap: "Groups"
 #| label: "fig-Group-plot"
-ggplot(post_meal_data, aes(x = Group)) + 
+ggplot(post_meal_data, aes(x = Group)) +
   geom_bar()
 ```
 
@@ -72,7 +69,7 @@ See @fig-Group-plot above for a cool plot!
 ## Plotting two discrete values
 
 ```{r}
-ggplot(post_meal_data, aes(x= Group, fill = as.character (glykemi)))+ 
+ggplot(post_meal_data, aes(x = Group, fill = as.character(glykemi))) +
   geom_bar(position = position_dodge())
 ```
 
@@ -80,41 +77,23 @@ ggplot(post_meal_data, aes(x= Group, fill = as.character (glykemi)))+
 
 ```{r fig-bmi-glycemia}
 #| fig-cap: "BMI & glycemia, side by side"
-#| fig-subcap: 
+#| fig-subcap:
 #|  - "Distribution of BMI"
 #|  - "Number of glycemic individuals"
 #| layout-ncol: 2
-ggplot(post_meal_data, aes(x=BMI)) + 
+ggplot(post_meal_data, aes(x = BMI)) +
   geom_histogram()
-ggplot(post_meal_data, aes(x=glykemi)) + 
+ggplot(post_meal_data, aes(x = glykemi)) +
   geom_bar()
 ```
 
 
+## Plotting two continous variables
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+```{r}
+#| fig-cap: "BMI area under the curve"
+#| label: fig-bmi-auc-pg
+ggplot(post_meal_data, aes(x = BMI, y = auc_pg)) +
+  geom_point() +
+  geom_smooth()
+```
