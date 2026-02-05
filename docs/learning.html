@@ -121,8 +121,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(glykemi <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>glykemi)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>tidied_post_meal_data <span class="ot">&lt;-</span> tidier_post_meal_data <span class="sc">%&gt;%</span> </span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>tidied_post_meal_data <span class="ot">&lt;-</span> tidier_post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">insulin_glucose_ratio =</span> auc_insulin <span class="sc">/</span> auc_glucose,</span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">if_else</span>(Group <span class="sc">==</span> <span class="st">"CTR"</span>, <span class="st">"Control"</span>, <span class="st">"First-degree relative"</span>)</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -2258,6 +2258,339 @@ Figure&nbsp;4: BMI area under the curve
 25              37.86879
 26              21.74956
 27              55.12536</code></pre>
+</div>
+</div>
+</section>
+<section id="practice-with-filter-and-mutate" class="level2">
+<h2 class="anchored" data-anchor-id="practice-with-filter-and-mutate">Practice with filter and mutate</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 1.</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BMI <span class="sc">&gt;=</span> <span class="dv">25</span> <span class="sc">&amp;</span> BMI <span class="sc">&lt;=</span> <span class="dv">40</span> <span class="sc">&amp;</span> Group <span class="sc">==</span> <span class="st">"CTR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    OFS.ID Group Age  BMI Length Weight Bone.mineral.DXA Fat.mass...DXA
+1  OFS 331   CTR  51 29.7   1.97  115.3             3.70           26.7
+2  OFS 333   CTR  30 33.4   1.78  105.9             3.20           34.7
+3  OFS 334   CTR  46 30.7   1.76   95.1             3.63           33.2
+4  OFS 335   CTR  34 28.7   1.87  100.5             4.65           31.6
+5  OFS 336   CTR  51 30.5   1.83  102.1             3.30           39.8
+6  OFS 337   CTR  53 28.9   1.80   93.6             3.92           31.1
+7  OFS 338   CTR  36 26.2   1.73   78.3             3.63           12.7
+8  OFS 340   CTR  35 25.1   1.79   80.4             2.78           21.6
+9  OFS 341   CTR  37 27.8   1.80   89.5             3.84           23.4
+10 OFS 343   CTR  40 31.8   1.86  109.9             3.94           30.7
+11 OFS 345   CTR  33 27.4   1.73   81.9             3.03           27.7
+   Fat.mass.DXA Fat.free.mass.DXA Fat.free.soft.tissue.DXA FP.Glucose.screen
+1          30.1             82.50                     78.8               5.1
+2          37.0             69.70                     66.5               5.8
+3          31.8             64.03                     60.4               5.2
+4          31.8             68.95                     64.3               5.0
+5          40.7             61.60                     58.3               5.1
+6          29.2             64.72                     60.8               4.8
+7          10.2             69.73                     66.1               4.8
+8          17.5             63.48                     60.7               5.0
+9          21.2             69.34                     65.5               4.8
+10         34.0             76.74                     72.8               5.1
+11         22.8             59.63                     56.6               4.9
+   P.Glucose..5.OGTT P.Glucose.0.OGTT P.GLucose.30.OGTT P.Glucose.60.OGTT
+1                5.1             5.10               8.8               7.3
+2                5.9             5.85              11.6              10.6
+3                5.2             5.20               7.9              12.4
+4                5.2             5.10               7.7               5.9
+5                5.6             5.35               8.8               9.0
+6                5.0             4.90               7.9               7.1
+7                5.1             4.95               5.8               4.5
+8                5.4             5.20               7.6               8.0
+9                5.3             5.05               8.6               7.8
+10               5.2             5.15               7.6              10.5
+11               4.9             4.90               9.0               8.0
+   P.Glucose.90.OGTT P.Glucose.120.OGTT FS.Insulin.screen Insulin..5.OGTT.X
+1                6.2                4.2             111.1            6.9450
+2               10.4                8.0             104.2          111.1200
+3               10.6                9.9              36.1           35.4195
+4                8.6                6.7              47.9           47.2260
+5                8.0                7.8              69.5           69.4500
+6                4.8                6.0              48.6           51.3950
+7                2.9                2.2              22.9           20.8350
+8                7.1                7.2              27.8           29.8635
+9                7.9                7.5              42.4           43.0590
+10               6.5                6.6              60.4           61.1160
+11               5.6                4.8              76.4           76.3950
+   Insulin.0.OGTT.X Insulin.0.OGTT Insulin.30.OGTT Insulin.60.OGTT
+1          59.03250       354.1950         666.720         694.500
+2         107.64750       645.8850         694.500         479.205
+3          35.76675       214.6005         402.810         604.215
+4          47.57325       285.4395         472.260         125.100
+5          69.45000       416.7000         680.610         972.300
+6          50.00500       300.0300         416.700         354.195
+7          21.87675       131.2605         625.050         208.350
+8          28.82175       172.9305         229.185         180.570
+9          42.71175       256.2705         409.755         277.800
+10         60.76875       364.6125         472.260        1041.750
+11         76.39500       458.3700         902.850        1250.100
+   Insulin.90.OGTT Insulin.120.OGTT PG.15 PG.5 PG1 PG2 PG3 PG5 PG8 PG10 PG15
+1          562.545         250.0200   4.8  5.1 5.3 5.2 5.1 5.0 5.1  5.3  5.4
+2          513.930         368.0850   5.3  5.4 5.4 5.4 5.5 5.4 5.6  5.8  6.6
+3          506.985         534.7650   4.8  4.8 5.1 5.0 5.1 5.1 4.9  5.0  5.2
+4          458.370         215.2950   5.0  5.0 5.1 5.2 5.2 5.3 5.3  5.4  5.9
+5         1111.200         833.4000   5.4  5.5 5.5 5.6 5.6 5.4 5.5  5.8  6.0
+6          194.460         201.4050   4.7  4.7 4.7 4.6 4.6 4.6 4.7  4.6  4.8
+7           83.340          24.3075   4.8  4.8 4.7 4.8 4.7 4.8 5.2  5.6  7.6
+8          208.350         284.7450   5.2  5.2 5.3 5.4 5.4 5.4 5.4  5.3  5.5
+9          354.195         284.7450   5.1  5.0 5.0 5.1 5.0 5.0 4.9  5.0  5.4
+10         506.985         472.2600   5.0  5.0 5.1 5.3 5.3 5.3 5.2  5.2  5.5
+11         833.400         638.9400   5.1  5.3 5.1 5.1 5.1 5.0 5.0  4.9  5.4
+   PG20 PG30 PG45 PG60 PG90 PG120 CP.15 CP.5  CP1  CP2  CP3  CP5  CP8 CP10 CP15
+1   5.9  6.4  6.8  6.8  6.4   6.4  0.90 0.94 0.94 0.94 0.99 1.01 1.02 1.01 1.13
+2   7.3  8.4  8.4  8.2  7.4   5.4  0.76 0.77 0.88 0.86 0.88 0.87 0.81 0.88 1.27
+3   5.6  7.0  7.5  6.8  5.9   5.2  0.68 0.69 0.73 0.79 0.80 0.83 0.76 0.80 0.81
+4   7.3  7.8  6.1  5.1  4.0   4.7  0.55 0.56 0.56 0.59 0.62 0.64 0.64 0.70 0.98
+5   7.1  8.6  8.3  8.0  7.4   6.0  0.64 0.64 0.66 0.73 0.74 0.71 0.65 0.77 0.92
+6   4.9  5.4  6.1  6.5  6.5   5.6  0.66 0.61 0.63 0.66 0.67 0.69 0.67 0.68 0.71
+7   8.3  7.7  6.0  3.6  3.9   3.9  0.41 0.41 0.36 0.39 0.42 0.44 0.47 0.63 1.36
+8   5.8  6.0  7.2  7.3  6.0   5.3  0.72 0.70 0.75 0.77 0.83 0.84 0.76 0.73 0.79
+9   6.6  8.0  8.0  6.5  5.9   5.6  0.56 0.57 0.57 0.59 0.72 0.80 0.70 0.67 0.87
+10  5.8  6.1  6.3  6.8  5.8   4.9  0.72 0.74 0.73 0.76 0.91 0.97 0.91 0.87 0.85
+11  5.8  6.4  7.1  6.6  5.0   6.0  0.74 0.75 0.79 0.75 0.80 0.82 0.80 0.77 0.85
+   CP20 CP30 CP45 CP60 CP90 CP120 Insulin.15 Insulin.5 Insulin1 Insulin2
+1  1.22 1.49 2.20 2.50 2.40  2.50    97.2300   97.2300  97.2300 104.1750
+2  1.49 1.94 2.10 2.40 2.40  1.44    68.0610   76.3950 118.0650 104.1750
+3  1.16 2.10 2.50 2.40 2.10  1.31    61.1160   60.4215  76.3950  83.3400
+4  1.48 2.20 2.20 1.67 0.99  0.83    54.1710   54.1710  54.8655  66.6720
+5  1.23 1.86 2.10 2.40 3.40  3.30    56.9490   57.6435  61.1160  90.2850
+6  0.71 0.88 1.21 1.61 1.99  1.69    61.1160   43.7535  56.2545  68.0610
+7  1.71 1.98 1.88 1.14 0.68  0.47    38.1975   30.5580  18.7515  31.2525
+8  0.84 0.88 1.77 1.97 1.93  1.51    41.6700   40.2810  50.0040  52.0875
+9  1.40 2.20 2.10 1.76 1.30  1.09    36.8085   38.1975  37.5030  47.2260
+10 0.98 1.21 1.34 2.20 2.30  1.41    68.0610   68.7555  68.7555  76.3950
+11 1.20 1.36 2.30 2.80 1.43  2.00    90.2850   97.2300 104.1750 104.1750
+   Insulin3 Insulin5 Insulin8 Insulin10 Insulin15 Insulin20 Insulin30 Insulin45
+1   118.065 118.0650  125.010  118.0650  173.6250  194.4600   236.130   423.645
+2    97.230  97.2300   90.285  111.1200  263.9100  340.3050   451.425   458.370
+3    90.285  90.2850   83.340   97.2300   97.2300  222.2400   562.545   604.215
+4    76.395  83.3400   76.395   90.2850  194.4600  340.3050   527.820   381.975
+5    90.285  76.3950   58.338   90.2850  138.9000  250.0200   409.755   375.030
+6    76.395  76.3950   61.116   64.5885   76.3950   69.4500   118.065   187.515
+7    41.670  43.7535   51.393  111.1200  305.5800  361.1400   333.360   229.185
+8    76.395  76.3950   47.226   43.0590   63.1995   67.3665    69.450   319.470
+9    90.285 104.1750   58.338   47.2260  111.1200  270.8550   430.590   277.800
+10  111.120 125.0100   97.230   90.2850   90.2850  125.0100   159.735   180.570
+11  111.120 125.0100  104.175   97.2300  131.9550  270.8550   270.855   534.765
+   Insulin60 Insulin90 Insulin120 id   iauc_cp  auc_cp   iauc_pg auc_pg
+1   416.7000  326.4150   354.1950 17 137.02000 258.520 186.25000 834.25
+2   541.7100  472.2600   131.9550 19 140.77500 243.375 240.80000 956.30
+3   486.1500  340.3050   125.0100 20 141.59000 233.390 163.40000 811.40
+4   187.5150   69.4500    50.6985 21  98.33500 172.585  77.88636 719.75
+5   444.4800  694.5000   500.0400 22 206.24000 292.640 230.05000 959.05
+6   270.8550  284.7450   187.5150 23  88.53500 177.130 139.62500 773.40
+7    67.3665   40.9755    23.6130 24  82.60667 137.765  93.80000 678.30
+8   243.0750  152.7900   118.0650 26  95.99400 193.070 120.95000 822.95
+9   187.5150   83.3400    63.8940 27 110.32000 185.920 155.31250 841.60
+10  437.5350  319.4700   125.0100 29 111.22000 208.420 107.96667 782.80
+11  694.5000  152.7900   416.7000 31 121.91000 221.810  98.79375 786.15
+   iauc_ins  auc_ins   kef_ins    kef_cp   kef_glu iauc_cp_e iauc_pg_e
+1  25894.43 39020.48 131.95500 131.95500 131.95500 123.60000   124.500
+2  38009.99 47198.22   0.00000   0.00000   0.00000 126.27500   183.950
+3  35073.04 43320.13  72.92250  72.92250  72.92250 127.15000   138.500
+4  17404.44 24707.88 147.58125 147.58125 147.58125  80.97500    55.675
+5  45803.66 53491.78 107.59408 107.59408 107.59408 191.30000   183.750
+6  16149.51 24245.69  99.66075  99.66075  99.66075  86.20000   150.500
+7  11324.12 16162.06 158.34600 158.34600 158.34600  59.77857    60.000
+8  14019.43 19637.33 103.87736 103.87736 103.87736  94.20000   108.000
+9  16220.05 21189.19 286.82850 286.82850 286.82850  96.77500   166.250
+10 20455.46 29643.69 254.53425 254.53425 254.53425  93.00769    84.750
+11 31148.33 43336.80  62.50500  62.50500  62.50500 117.87500   118.750
+   iauc_ins_e glykemi
+1   23422.013       0
+2   32780.400       1
+3   30818.438       1
+4   14170.864       0
+5   41947.800       1
+6   15697.436       0
+7    7157.001       0
+8   13676.441       0
+9   14737.290       0
+10  17692.388       0
+11  30106.575       0</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 2.</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">percent_body_fat =</span> (Fat.mass.DXA <span class="sc">/</span> Weight) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(percent_body_fat <span class="sc">&gt;</span> <span class="dv">30</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>    OFS.ID Group Age  BMI Length Weight Bone.mineral.DXA Fat.mass...DXA
+1  OFS 301   FDR  50 27.5   1.83   92.0             3.54           30.2
+2  OFS 302   FDR  51 33.7   1.77  105.6             4.05           36.4
+3  OFS 305   FDR  53 29.4   1.84   99.4             4.09           31.2
+4  OFS 311   FDR  47 27.9   1.73   83.6             3.28           35.1
+5  OFS 333   CTR  30 33.4   1.78  105.9             3.20           34.7
+6  OFS 334   CTR  46 30.7   1.76   95.1             3.63           33.2
+7  OFS 335   CTR  34 28.7   1.87  100.5             4.65           31.6
+8  OFS 336   CTR  51 30.5   1.83  102.1             3.30           39.8
+9  OFS 337   CTR  53 28.9   1.80   93.6             3.92           31.1
+10 OFS 343   CTR  40 31.8   1.86  109.9             3.94           30.7
+   Fat.mass.DXA Fat.free.mass.DXA Fat.free.soft.tissue.DXA FP.Glucose.screen
+1          27.9             64.34                     60.8               5.1
+2          38.7             67.75                     63.7               5.2
+3          31.2             68.99                     64.9               5.5
+4          29.3             54.28                     51.0               5.1
+5          37.0             69.70                     66.5               5.8
+6          31.8             64.03                     60.4               5.2
+7          31.8             68.95                     64.3               5.0
+8          40.7             61.60                     58.3               5.1
+9          29.2             64.72                     60.8               4.8
+10         34.0             76.74                     72.8               5.1
+   P.Glucose..5.OGTT P.Glucose.0.OGTT P.GLucose.30.OGTT P.Glucose.60.OGTT
+1                5.1             5.10               9.4               6.9
+2                5.6             5.40               8.4               8.4
+3                5.6             5.55               9.9              10.6
+4                5.3             5.20               8.9               6.1
+5                5.9             5.85              11.6              10.6
+6                5.2             5.20               7.9              12.4
+7                5.2             5.10               7.7               5.9
+8                5.6             5.35               8.8               9.0
+9                5.0             4.90               7.9               7.1
+10               5.2             5.15               7.6              10.5
+   P.Glucose.90.OGTT P.Glucose.120.OGTT FS.Insulin.screen Insulin..5.OGTT.X
+1                4.7                4.3              50.0           53.4765
+2                8.7                7.2              97.2           90.2850
+3               11.0                7.6              41.0           44.4480
+4                5.9                4.8              45.1           47.2260
+5               10.4                8.0             104.2          111.1200
+6               10.6                9.9              36.1           35.4195
+7                8.6                6.7              47.9           47.2260
+8                8.0                7.8              69.5           69.4500
+9                4.8                6.0              48.6           51.3950
+10               6.5                6.6              60.4           61.1160
+   Insulin.0.OGTT.X Insulin.0.OGTT Insulin.30.OGTT Insulin.60.OGTT
+1          51.74025       310.4415         368.085         645.885
+2          93.75750       562.5450         486.150         673.665
+3          42.71175       256.2705         430.590         361.140
+4          46.18425       277.1055         458.370         493.095
+5         107.64750       645.8850         694.500         479.205
+6          35.76675       214.6005         402.810         604.215
+7          47.57325       285.4395         472.260         125.100
+8          69.45000       416.7000         680.610         972.300
+9          50.00500       300.0300         416.700         354.195
+10         60.76875       364.6125         472.260        1041.750
+   Insulin.90.OGTT Insulin.120.OGTT PG.15 PG.5 PG1 PG2 PG3 PG5 PG8 PG10 PG15
+1          326.415          201.405   5.4  5.4 5.4 5.5 5.3 5.3 5.5  5.5  5.8
+2          972.300          694.500   5.2  5.4 5.4 5.4 5.4 5.4 5.5  5.6  6.0
+3          527.820          284.745   5.9  5.8 5.8 5.9 5.8 5.8 5.7  5.7  6.2
+4          395.865          284.745   5.5  5.1 5.5 5.3 5.3 5.3 5.3  5.5  5.8
+5          513.930          368.085   5.3  5.4 5.4 5.4 5.5 5.4 5.6  5.8  6.6
+6          506.985          534.765   4.8  4.8 5.1 5.0 5.1 5.1 4.9  5.0  5.2
+7          458.370          215.295   5.0  5.0 5.1 5.2 5.2 5.3 5.3  5.4  5.9
+8         1111.200          833.400   5.4  5.5 5.5 5.6 5.6 5.4 5.5  5.8  6.0
+9          194.460          201.405   4.7  4.7 4.7 4.6 4.6 4.6 4.7  4.6  4.8
+10         506.985          472.260   5.0  5.0 5.1 5.3 5.3 5.3 5.2  5.2  5.5
+   PG20 PG30 PG45 PG60 PG90 PG120 CP.15 CP.5  CP1  CP2  CP3  CP5  CP8 CP10 CP15
+1   6.1  6.9  7.6  6.5  5.3   5.1  0.93 0.08 0.90 0.96 0.95 1.01 1.09 1.10 1.12
+2   6.5  7.5  7.8  7.5  7.5   7.5  0.99 1.05 1.05 1.07 1.10 1.15 1.24 1.19 1.39
+3   7.2  8.0  9.3  9.1  7.6   5.8  0.69 0.69 0.71 0.74 0.80 0.84 0.82 0.78 0.89
+4   6.4  6.6  6.6  6.3  4.8   4.9  0.62 0.61 0.60 0.63 0.66 0.68 0.66 0.70 0.87
+5   7.3  8.4  8.4  8.2  7.4   5.4  0.76 0.77 0.88 0.86 0.88 0.87 0.81 0.88 1.27
+6   5.6  7.0  7.5  6.8  5.9   5.2  0.68 0.69 0.73 0.79 0.80 0.83 0.76 0.80 0.81
+7   7.3  7.8  6.1  5.1  4.0   4.7  0.55 0.56 0.56 0.59 0.62 0.64 0.64 0.70 0.98
+8   7.1  8.6  8.3  8.0  7.4   6.0  0.64 0.64 0.66 0.73 0.74 0.71 0.65 0.77 0.92
+9   4.9  5.4  6.1  6.5  6.5   5.6  0.66 0.61 0.63 0.66 0.67 0.69 0.67 0.68 0.71
+10  5.8  6.1  6.3  6.8  5.8   4.9  0.72 0.74 0.73 0.76 0.91 0.97 0.91 0.87 0.85
+   CP20 CP30 CP45 CP60 CP90 CP120 Insulin.15 Insulin.5 Insulin1 Insulin2
+1  1.23 1.52 2.60 2.40 2.20  1.61     76.395   66.9450  67.3665  76.3950
+2  1.67 2.10 2.00 2.20 2.60  3.00     83.340  104.1750  97.2300  97.2300
+3  1.22 1.50 1.83 2.10 2.70  2.00     56.949   52.7820  51.3930  64.5885
+4  1.16 1.24 1.17 1.65 1.85  1.94     47.226   45.8370  43.0590  46.5315
+5  1.49 1.94 2.10 2.40 2.40  1.44     68.061   76.3950 118.0650 104.1750
+6  1.16 2.10 2.50 2.40 2.10  1.31     61.116   60.4215  76.3950  83.3400
+7  1.48 2.20 2.20 1.67 0.99  0.83     54.171   54.1710  54.8655  66.6720
+8  1.23 1.86 2.10 2.40 3.40  3.30     56.949   57.6435  61.1160  90.2850
+9  0.71 0.88 1.21 1.61 1.99  1.69     61.116   43.7535  56.2545  68.0610
+10 0.98 1.21 1.34 2.20 2.30  1.41     68.061   68.7555  68.7555  76.3950
+   Insulin3 Insulin5 Insulin8 Insulin10 Insulin15 Insulin20 Insulin30 Insulin45
+1    83.340   90.285  104.175   97.2300   111.120   138.900   187.515   465.315
+2    90.285  125.010  152.790  138.9000   194.460   291.690   319.470   381.975
+3    58.338   76.395   66.672   59.0325    97.230   201.405   270.855   326.415
+4    59.727   65.283   56.949   69.4500   111.120   194.460   173.625   118.065
+5    97.230   97.230   90.285  111.1200   263.910   340.305   451.425   458.370
+6    90.285   90.285   83.340   97.2300    97.230   222.240   562.545   604.215
+7    76.395   83.340   76.395   90.2850   194.460   340.305   527.820   381.975
+8    90.285   76.395   58.338   90.2850   138.900   250.020   409.755   375.030
+9    76.395   76.395   61.116   64.5885    76.395    69.450   118.065   187.515
+10  111.120  125.010   97.230   90.2850    90.285   125.010   159.735   180.570
+   Insulin60 Insulin90 Insulin120 id  iauc_cp  auc_cp   iauc_pg  auc_pg
+1    305.580   222.240   138.9000  1 118.2475 236.900  82.97500  805.55
+2    333.360   395.865   465.3150  2 144.4600 278.110 242.20000  944.20
+3    347.250   381.975   180.5700  5 145.1750 238.325 209.78333 1003.75
+4    229.185   229.185   250.0200 11 101.7717 185.325  50.90000  764.30
+5    541.710   472.260   131.9550 19 140.7750 243.375 240.80000  956.30
+6    486.150   340.305   125.0100 20 141.5900 233.390 163.40000  811.40
+7    187.515    69.450    50.6985 21  98.3350 172.585  77.88636  719.75
+8    444.480   694.500   500.0400 22 206.2400 292.640 230.05000  959.05
+9    270.855   284.745   187.5150 23  88.5350 177.130 139.62500  773.40
+10   437.535   319.470   125.0100 29 111.2200 208.420 107.96667  782.80
+   iauc_ins  auc_ins   kef_ins    kef_cp   kef_glu iauc_cp_e iauc_pg_e
+1  18522.31 28728.44 145.49775 145.49775 145.49775  98.72500    75.000
+2  30992.06 42242.96 147.23400 147.23400 147.23400 120.30000   193.750
+3  26225.84 33862.78 109.03650 109.03650 109.03650 134.20000   231.500
+4  16826.71 23176.16 104.86950 104.86950 104.86950  92.57500    50.900
+5  38009.99 47198.22   0.00000   0.00000   0.00000 126.27500   183.950
+6  35073.04 43320.13  72.92250  72.92250  72.92250 127.15000   138.500
+7  17404.44 24707.88 147.58125 147.58125 147.58125  80.97500    55.675
+8  45803.66 53491.78 107.59408 107.59408 107.59408 191.30000   183.750
+9  16149.51 24245.69  99.66075  99.66075  99.66075  86.20000   150.500
+10 20455.46 29643.69 254.53425 254.53425 254.53425  93.00769    84.750
+   iauc_ins_e glykemi percent_body_fat
+1    16095.04       0         30.32609
+2    24307.50       0         36.64773
+3    25913.53       0         31.38833
+4    14271.98       0         35.04785
+5    32780.40       1         34.93862
+6    30818.44       1         33.43849
+7    14170.86       0         31.64179
+8    41947.80       1         39.86288
+9    15697.44       0         31.19658
+10   17692.39       0         30.93722</code></pre>
+</div>
+</div>
+</section>
+<section id="visualizing-with-a-jitter-plot" class="level2">
+<h2 class="anchored" data-anchor-id="visualizing-with-a-jitter-plot">Visualizing with a jitter plot</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>tidied_post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Overweight =</span> <span class="fu">if_else</span>(BMI <span class="sc">&gt;=</span> <span class="dv">25</span>, <span class="st">"Overweight"</span>, <span class="st">"Not overweight"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Overweight, <span class="at">y =</span> insulin_glucose_ratio)) <span class="sc">+</span></span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="learning_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="plotting-three-or-more-variables" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-three-or-more-variables">Plotting three or more variables</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>tidied_post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BMI <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">young =</span> <span class="fu">if_else</span>(Age <span class="sc">&lt;</span> <span class="dv">40</span>, <span class="st">"Young"</span>, <span class="st">"Old"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> BMI, <span class="at">y =</span> insulin_glucose_ratio, <span class="at">color =</span> Group)) <span class="sc">+</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">rows =</span> <span class="fu">vars</span>(young)) <span class="sc">+</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Body mass index (BMI)"</span>,</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Insulin to glucose ratio"</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="learning_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
