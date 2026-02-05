@@ -117,9 +117,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">auc_glucose =</span> auc_pg,</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">auc_insulin =</span> auc_ins</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  )<span class="sc">|&gt;</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(glykemi <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>glykemi)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>glykemi)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>tidied_post_meal_data <span class="ot">&lt;-</span> tidier_post_meal_data <span class="sc">%&gt;%</span> </span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">mutate</span>(</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">insulin_glucose_ratio =</span> auc_insulin <span class="sc">/</span> auc_glucose,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">if_else</span>(Group <span class="sc">==</span> <span class="st">"CTR"</span>, <span class="st">"Control"</span>, <span class="st">"First-degree relative"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <section id="about-me" class="level2">
 <h2 class="anchored" data-anchor-id="about-me">About me</h2>
@@ -1420,11 +1426,11 @@ Figure&nbsp;4: BMI area under the curve
 <section id="renaming-columns" class="level2">
 <h2 class="anchored" data-anchor-id="renaming-columns">Renaming Columns</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>small_post_meal_data <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>small_post_meal_data <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">auc_glucose =</span> auc_pg,</span>
 <span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">auc_insulin =</span> auc_ins</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   id Age  BMI Group auc_glucose auc_insulin glykemi
 1   1  50 27.5   FDR      805.55    28728.44       0
@@ -1637,7 +1643,7 @@ Figure&nbsp;4: BMI area under the curve
 31               4.9           76.3950</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># = 2 columns</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Task 3.</span></span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>post_meal_data <span class="sc">|&gt;</span></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
@@ -2082,7 +2088,7 @@ Figure&nbsp;4: BMI area under the curve
 4 22  51 30.5   CTR 959.05 53491.78       1</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>small_post_meal_data <span class="sc">|&gt;</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span> (BMI <span class="sc">&gt;=</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BMI <span class="sc">&gt;=</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   id Age  BMI Group  auc_pg  auc_ins glykemi
 1   1  50 27.5   FDR  805.55 28728.44       0
@@ -2106,7 +2112,7 @@ Figure&nbsp;4: BMI area under the curve
 19 31  33 27.4   CTR  786.15 43336.80       0</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>small_post_meal_data <span class="sc">|&gt;</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span><span class="st">"CTR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span> <span class="st">"CTR"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   id Age  BMI Group auc_pg  auc_ins glykemi
 1  17  51 29.7   CTR 834.25 39020.48       0
@@ -2126,7 +2132,7 @@ Figure&nbsp;4: BMI area under the curve
 15 31  33 27.4   CTR 786.15 43336.80       0</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>small_post_meal_data <span class="sc">|&gt;</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span><span class="st">"CTR"</span> <span class="sc">|</span> BMI <span class="sc">&gt;=</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Group <span class="sc">==</span> <span class="st">"CTR"</span> <span class="sc">|</span> BMI <span class="sc">&gt;=</span> <span class="dv">25</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   id Age  BMI Group  auc_pg  auc_ins glykemi
 1   1  50 27.5   FDR  805.55 28728.44       0
@@ -2152,6 +2158,106 @@ Figure&nbsp;4: BMI area under the curve
 21 29  40 31.8   CTR  782.80 29643.69       0
 22 30  34 20.8   CTR  762.80 16590.56       0
 23 31  33 27.4   CTR  786.15 43336.80       0</code></pre>
+</div>
+</div>
+</section>
+<section id="modifying-data" class="level2">
+<h2 class="anchored" data-anchor-id="modifying-data">Modifying data</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>tidier_post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">insulin_glucose_ratio =</span> auc_insulin <span class="sc">/</span> auc_glucose)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   id Age  BMI Group auc_glucose auc_insulin insulin_glucose_ratio
+1   1  50 27.5   FDR      805.55    28728.44              35.66314
+2   2  51 33.7   FDR      944.20    42242.96              44.73942
+3   3  43 26.3   FDR      693.95     7107.86              10.24261
+4   4  55 25.9   FDR      731.15    37592.94              51.41618
+5   5  53 29.4   FDR     1003.75    33862.78              33.73627
+6   6  51 23.7   FDR      712.80    15008.49              21.05568
+7   7  48 23.9   FDR      965.15    23195.61              24.03316
+8   8  35 22.0   FDR      741.25    15272.06              20.60311
+9   9  54 26.4   FDR      847.55    24425.91              28.81944
+10 10  52 24.5   FDR      758.75    22475.41              29.62163
+11 11  47 27.9   FDR      764.30    23176.16              30.32338
+12 12  37 22.6   FDR      791.10    30320.13              38.32655
+13 13  55 22.2   FDR     1152.50    32424.47              28.13403
+14 14  35 24.6   FDR      625.85    30905.94              49.38235
+15 16  52 27.5   FDR      824.20    36487.29              44.26995
+16 17  51 29.7   CTR      834.25    39020.48              46.77313
+17 18  51 21.2   CTR      787.30    12342.65              15.67719
+18 21  34 28.7   CTR      719.75    24707.88              34.32842
+19 23  53 28.9   CTR      773.40    24245.69              31.34948
+20 24  36 26.2   CTR      678.30    16162.06              23.82730
+21 25  30 21.2   CTR      734.60    23829.68              32.43899
+22 26  35 25.1   CTR      822.95    19637.33              23.86212
+23 27  37 27.8   CTR      841.60    21189.19              25.17728
+24 28  49 20.2   CTR      757.30    17985.12              23.74900
+25 29  40 31.8   CTR      782.80    29643.69              37.86879
+26 30  34 20.8   CTR      762.80    16590.56              21.74956
+27 31  33 27.4   CTR      786.15    43336.80              55.12536</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>tidier_post_meal_data <span class="sc">%&gt;%</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">insulin_glucose_ratio =</span> auc_insulin <span class="sc">/</span> auc_glucose,</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Group =</span> <span class="fu">if_else</span>(Group <span class="sc">==</span> <span class="st">"CTR"</span>, <span class="st">"Control"</span>, <span class="st">"First-degree relative"</span>)</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   id Age  BMI                 Group auc_glucose auc_insulin
+1   1  50 27.5 First-degree relative      805.55    28728.44
+2   2  51 33.7 First-degree relative      944.20    42242.96
+3   3  43 26.3 First-degree relative      693.95     7107.86
+4   4  55 25.9 First-degree relative      731.15    37592.94
+5   5  53 29.4 First-degree relative     1003.75    33862.78
+6   6  51 23.7 First-degree relative      712.80    15008.49
+7   7  48 23.9 First-degree relative      965.15    23195.61
+8   8  35 22.0 First-degree relative      741.25    15272.06
+9   9  54 26.4 First-degree relative      847.55    24425.91
+10 10  52 24.5 First-degree relative      758.75    22475.41
+11 11  47 27.9 First-degree relative      764.30    23176.16
+12 12  37 22.6 First-degree relative      791.10    30320.13
+13 13  55 22.2 First-degree relative     1152.50    32424.47
+14 14  35 24.6 First-degree relative      625.85    30905.94
+15 16  52 27.5 First-degree relative      824.20    36487.29
+16 17  51 29.7               Control      834.25    39020.48
+17 18  51 21.2               Control      787.30    12342.65
+18 21  34 28.7               Control      719.75    24707.88
+19 23  53 28.9               Control      773.40    24245.69
+20 24  36 26.2               Control      678.30    16162.06
+21 25  30 21.2               Control      734.60    23829.68
+22 26  35 25.1               Control      822.95    19637.33
+23 27  37 27.8               Control      841.60    21189.19
+24 28  49 20.2               Control      757.30    17985.12
+25 29  40 31.8               Control      782.80    29643.69
+26 30  34 20.8               Control      762.80    16590.56
+27 31  33 27.4               Control      786.15    43336.80
+   insulin_glucose_ratio
+1               35.66314
+2               44.73942
+3               10.24261
+4               51.41618
+5               33.73627
+6               21.05568
+7               24.03316
+8               20.60311
+9               28.81944
+10              29.62163
+11              30.32338
+12              38.32655
+13              28.13403
+14              49.38235
+15              44.26995
+16              46.77313
+17              15.67719
+18              34.32842
+19              31.34948
+20              23.82730
+21              32.43899
+22              23.86212
+23              25.17728
+24              23.74900
+25              37.86879
+26              21.74956
+27              55.12536</code></pre>
 </div>
 </div>
 </section>
